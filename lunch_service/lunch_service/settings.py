@@ -77,11 +77,11 @@ WSGI_APPLICATION = "lunch_service.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "TestTaskInforce_db",  # Назва вашої бази даних
-        "USER": "postgres",  # Ваш користувач PostgreSQL
-        "PASSWORD": "21211488",  # Ваш пароль для користувача
-        "HOST": "localhost",  # Хост, де розгорнуто PostgreSQL (зазвичай localhost)
-        "PORT": "5432",  # Порт для PostgreSQL (стандартний порт - 5432)
+        "NAME": "TestTaskInforce_db",
+        "USER": "postgres",
+        "PASSWORD": "21211488",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 

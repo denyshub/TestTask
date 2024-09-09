@@ -1,0 +1,6 @@
+[tool.black]
+line-length = 79  # Максимальна довжина рядка
+exclude = '''
+djvenv/
+tests
+'''
