@@ -13,7 +13,7 @@
 2. **Set Up the Virtual Environment and Install Dependencies**
    - Navigate to the project folder:
      ```bash
-     cd TestTaskInforce
+     cd TestTask
      ```
    - Create and activate a virtual environment:
      ```bash
