@@ -13,7 +13,7 @@
 2. **Set Up the Virtual Environment and Install Dependencies**
    - Navigate to the project folder:
      ```bash
-     cd TestTaskInforce
+     cd TestTask
      ```
    - Create and activate a virtual environment:
      ```bash
@@ -41,3 +41,6 @@
 
 4. **Open the Browser**
    - Go to: [http://127.0.0.1:8000/api/v1/](http://127.0.0.1:8000/api/v1/)
+
+   
+

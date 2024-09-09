@@ -5,11 +5,15 @@ from rest_framework.permissions import BasePermission
 class IsAdminOrReadOnly(BasePermission):
 
     def has_permission(self, request, view):
-        if (
-            request.method in ["GET", "HEAD", "OPTIONS"]
-            and request.user.is_authenticated
-        ):
-            return True
+
+        if request.method in ["GET", "HEAD", "OPTIONS"]:
+            if (
+                request.user
+                and request.user.is_authenticated
+                and not request.user.employee.is_restaurant_worker
+            ):
+
+                return True
         return request.user and request.user.is_staff
 
 
@@ -19,16 +23,11 @@ class IsRestaurantEmployeeOrReadOnly(BasePermission):
         if not request.user or not request.user.is_authenticated:
             return False
 
-            # Дозволяємо доступ до POST запитів для співробітників ресторану
         if request.method == "POST":
             return (
                 hasattr(request.user, "employee")
                 and request.user.employee.is_restaurant_worker
             )
-
-            # Всі інші запити заборонені для співробітників ресторану
-        if hasattr(request.user, "employee"):
-            return False
 
         return True
 

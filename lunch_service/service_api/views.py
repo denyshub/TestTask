@@ -93,7 +93,6 @@ class DayResultsView(APIView):
 
         user = request.user
 
-        # Перевірка, чи користувач є працівником ресторану
         if hasattr(user, "employee") and user.employee.is_restaurant_worker:
             return Response(
                 {"detail": "Restaurant employees cannot access voting results."},
@@ -107,7 +106,7 @@ class DayResultsView(APIView):
             .values("menu")
             .annotate(vote_count=Count("id"))
             .order_by("-vote_count")
-            .first()  # Вибираємо перше меню
+            .first()
         )
 
         if not most_voted_menu:

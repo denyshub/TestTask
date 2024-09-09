@@ -10,6 +10,9 @@ db.sqlite3
 
 *.log
 
+.black
+.flake8
+
 .idea/
 .vscode/
 
