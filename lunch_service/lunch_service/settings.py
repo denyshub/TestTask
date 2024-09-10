@@ -81,7 +81,7 @@ DATABASES = {
         "NAME": "TestTaskInforce_db",
         "USER": "postgres",
         "PASSWORD": "21211488",
-        "HOST": "db",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
