@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 
 from service_api.models import Vote, Menu, Restaurant, Employee
+from freezegun import freeze_time
 
 
 @pytest.mark.django_db
+@freeze_time("2024-09-09")
 def test_vote_creation():
     user = User.objects.create_user(username="testuser1", password="12345678den")
     restaurant = Restaurant.objects.create(name="test restaurant")
@@ -21,6 +23,7 @@ def test_vote_creation():
 
 
 @pytest.mark.django_db
+@freeze_time("2024-09-09")
 def test_vote_creation_by_restaurant_employee():
     user = User.objects.create_user(username="testuser1", password="12345678den")
     restaurant = Restaurant.objects.create(name="test restaurant")

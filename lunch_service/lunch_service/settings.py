@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure--gmcs*7)!c@2ydy#pt34$i$3x&r5k-kg7ob&jm1-_ge2muufls
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
 # Application definition
 
@@ -81,10 +81,11 @@ DATABASES = {
         "NAME": "TestTaskInforce_db",
         "USER": "postgres",
         "PASSWORD": "21211488",
-        "HOST": "localhost",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

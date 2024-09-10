@@ -18,7 +18,7 @@ def test_result_for_users():
     client = APIClient()
     client.force_authenticate(user=user)
 
-    response = client.get("/api/v1/results/")
+    response = client.get("/api/v1/results/", HTTP_X_APP_VERSION="2.0")
 
     assert response.data["menu_name"] == menu.items
     assert response.data["restaurant_name"] == restaurant.name
@@ -38,5 +38,5 @@ def test_result_for_restaurant_workers():
     client = APIClient()
     client.force_authenticate(user=user)
 
-    response = client.get("/api/v1/results/")
+    response = client.get("/api/v1/results/", HTTP_X_APP_VERSION="2.0")
     assert response.status_code == 403

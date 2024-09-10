@@ -1,10 +1,10 @@
-from django.db.models import Count
 from django.utils import timezone
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from service_api.mixins import DayResultsMixin
 from service_api.models import Restaurant, Menu, Employee, Vote
 from service_api.persmissions import IsAdminOrReadOnly, IsRestaurantEmployeeOrReadOnly
 
@@ -86,44 +86,17 @@ class VoteViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class DayResultsView(APIView):
+class DayResultsView(DayResultsMixin, APIView):
     permission_classes = [IsAuthenticated]
 
+    def get_version(self, request):
+        return request.headers.get("X-App-Version", "1.0")
+
     def get(self, request, *args, **kwargs):
-
-        user = request.user
-
-        if hasattr(user, "employee") and user.employee.is_restaurant_worker:
+        version = self.get_version(request)
+        if request.user.employee.is_restaurant_worker:
             return Response(
-                {"detail": "Restaurant employees cannot access voting results."},
+                {"detail": "Restaurant employees cannot get results."},
                 status=status.HTTP_403_FORBIDDEN,
             )
-
-        today = timezone.now().date()
-
-        most_voted_menu = (
-            Vote.objects.filter(date=today)
-            .values("menu")
-            .annotate(vote_count=Count("id"))
-            .order_by("-vote_count")
-            .first()
-        )
-
-        if not most_voted_menu:
-            return Response(
-                {"detail": "No votes found for today."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
-
-        menu_id = most_voted_menu["menu"]
-        menu = Menu.objects.get(id=menu_id)
-        restaurant = menu.restaurant
-
-        return Response(
-            {
-                "menu_name": menu.items,
-                "restaurant_name": restaurant.name,
-                "vote_count": most_voted_menu["vote_count"],
-            },
-            status=status.HTTP_200_OK,
-        )
+        return self.get_today_results(version)
